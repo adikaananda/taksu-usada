@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taksu Usada - Digitalisasi Kearifan Lokal Usada Bali</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-dark-green: #18432A;
+            --secondary-green: #3D650F;
+            --accent-green: #65AE6E;
+            --light-green: #C9FA91;
+            --cream: #F5F3E9;
+            --dark-text: #2C1810;
+            --light-text: #8B7355;
+            --white: #FFFFFF;
+            --shadow-light: rgba(24, 67, 42, 0.1);
+            --shadow-medium: rgba(24, 67, 42, 0.2);
+            --shadow-dark: rgba(24, 67, 42, 0.3);
+            --nav-height: 80px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-text);
+            background: linear-gradient(135deg, var(--cream) 0%, #F8F6F0 50%, var(--cream) 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ─── NAVBAR ─────────────────────────────────────────── */
+        header {
+            background: linear-gradient(135deg, var(--primary-dark-green) 0%, var(--secondary-green) 100%);
+            height: var(--nav-height);
+            position: sticky;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 24px var(--shadow-medium);
+            transition: all 0.3s ease;
+            padding: 12px 0;
+        }
+
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--light-green), transparent);
+        }
+
+        .header-content {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        /* Logo */
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex-shrink: 0;
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            overflow: hidden;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(101,174,110,0.35);
+        }
+
+        .logo-icon img { width: 100%; height: 100%; object-fit: cover; }
+
+        .logo-text img { height: 32px; display: block; }
+        .logo-text span {
+            color: rgba(201,250,145,0.85);
+            font-size: 0.72rem;
+            letter-spacing: 0.04em;
+            display: block;
+            margin-top: 2px;
+        }
+
+        /* Desktop Nav */
+        .nav-desktop {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .nav-desktop a {
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.01em;
+            transition: all 0.25s ease;
+            white-space: nowrap;
+            border: 1.5px solid transparent;
+        }
+
+        .nav-desktop a:hover,
+        .nav-desktop a.active {
+            color: var(--white);
+            background: rgba(255,255,255,0.12);
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        .nav-desktop a.active {
+            background: rgba(101,174,110,0.25);
+            border-color: var(--accent-green);
+        }
+
+        /* Download CTA in nav */
+        .nav-desktop a.nav-cta {
+            background: var(--accent-green);
+            color: var(--primary-dark-green);
+            font-weight: 700;
+            border-color: var(--accent-green);
+        }
+        .nav-desktop a.nav-cta:hover {
+            background: var(--light-green);
+            border-color: var(--light-green);
+        }
+
+        /* Hamburger button */
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border: 1.5px solid rgba(255,255,255,0.2);
+            border-radius: 10px;
+            cursor: pointer;
+            padding: 8px;
+            transition: background 0.2s;
+        }
+
+        .nav-toggle:hover { background: rgba(255,255,255,0.2); }
+
+        .nav-toggle span {
+            display: block;
+            height: 2px;
+            background: var(--white);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+            transform-origin: center;
+        }
+
+        .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .nav-toggle.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        /* Mobile Nav Drawer */
+        .nav-mobile {
+            display: none;
+            flex-direction: column;
+            position: fixed;
+            top: var(--nav-height);
+            left: 0; right: 0;
+            background: linear-gradient(160deg, #1a4d30 0%, #2d5210 100%);
+            padding: 16px 20px 24px;
+            gap: 4px;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+            border-bottom: 2px solid rgba(201,250,145,0.25);
+            transform: translateY(-110%);
+            transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+            z-index: 999;
+            overflow-x: hidden;
+        }
+
+        .nav-mobile.open {
+            transform: translateY(0);
+        }
+
+        .nav-mobile a {
+            color: rgba(255,255,255,0.88);
+            text-decoration: none;
+            padding: 13px 18px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-mobile a::before {
+            content: attr(data-icon);
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .nav-mobile a:hover,
+        .nav-mobile a.active {
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.15);
+            color: var(--white);
+        }
+
+        .nav-mobile a.nav-cta-mobile {
+            background: var(--accent-green);
+            color: var(--primary-dark-green);
+            font-weight: 700;
+            margin-top: 8px;
+            border-color: var(--accent-green);
+            justify-content: center;
+        }
+
+        .nav-mobile a.nav-cta-mobile:hover {
+            background: var(--light-green);
+        }
+
+        /* Overlay */
+        .nav-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.4);
+            z-index: 998;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .nav-overlay.open { opacity: 1; }
+
+        /* ─── HERO ─────────────────────────────────────────────── */
+        .hero {
+            text-align: center;
+            padding: 11rem 0;
+            position: relative;
+            overflow: hidden;
+            background-image: url(BGH.png);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 30% 70%, var(--light-green) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 30%, var(--accent-green) 0%, transparent 50%);
+            opacity: 0.1;
+        }
+
+        .hero-content { position: relative; z-index: 2; }
+
+        .hero h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #0a1f14 0%, var(--secondary-green) 80%, var(--light-green) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            color: white;
+            line-height: 1.7;
+        }
+
+        /* ─── FEATURES ─────────────────────────────────────────── */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2rem;
+            padding: 5rem 0;
+        }
+
+        .feature-card {
+            background: var(--white);
+            padding: 2.5rem 2rem;
+            border-radius: 24px;
+            text-align: center;
+            box-shadow: 0 12px 40px var(--shadow-light);
+            transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+            border: 1px solid rgba(24,67,42,0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-green), var(--light-green));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover::before { transform: scaleX(1); }
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 24px 60px var(--shadow-medium);
+        }
+
+        .feature-icon {
+            width: 90px; height: 90px;
+            margin: 0 auto 1.8rem;
+            background: linear-gradient(135deg, var(--primary-dark-green), var(--secondary-green));
+            border-radius: 22px;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 10px 28px var(--shadow-medium);
+        }
+
+        .feature-icon img { width: 90px; }
+
+        .feature-card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            color: var(--primary-dark-green);
+        }
+
+        .feature-card p { color: var(--light-text); font-size: 0.95rem; line-height: 1.65; }
+
+        /* ─── SECTIONS ─────────────────────────────────────────── */
+        .section {
+            background: var(--white);
+            margin: 3rem 0;
+            padding: 4rem 3rem;
+            border-radius: 32px;
+            box-shadow: 0 16px 48px var(--shadow-light);
+            border: 1px solid rgba(24,67,42,0.08);
+        }
+
+        .section h3 {
+            font-family: 'Cormorant Garamond', serif;
+            text-align: center;
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 2.5rem;
+            background: linear-gradient(135deg, var(--primary-dark-green), var(--secondary-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* ─── AUTHOR CARDS ─────────────────────────────────────── */
+        .author-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .author-card {
+            background-image: url(bg.png);
+            background-size: cover;
+            background-position: center;
+            padding: 2.5rem 2rem;
+            border-radius: 24px;
+            text-align: center;
+            box-shadow: 0 12px 32px var(--primary-dark-green);
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .author-card:hover {
+            border-color: var(--secondary-green);
+            transform: translateY(-8px);
+        }
+
+        .author-avatar {
+            width: 130px; height: 130px;
+            margin: 0 auto 1.5rem;
+            border-radius: 50%;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--primary-dark-green), var(--accent-green));
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 12px 32px var(--shadow-medium);
+        }
+
+        .author-avatar img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .author-card h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 0.4rem;
+            color: white;
+        }
+
+        .author-card .role-badge {
+            display: inline-block;
+            background: rgba(201,250,145,0.2);
+            border: 1px solid rgba(201,250,145,0.4);
+            color: var(--light-green);
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 4px 14px;
+            border-radius: 50px;
+            margin-bottom: 1rem;
+        }
+
+        .author-card p { color: rgba(255,255,255,0.82); font-size: 0.9rem; line-height: 1.6; }
+
+        /* ─── TEAM GRID ────────────────────────────────────────── */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        /* ─── VIDEO CARDS ──────────────────────────────────────── */
+        .video-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .video-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 24px;
+            box-shadow: 0 10px 28px var(--shadow-light);
+            border: 1px solid rgba(24,67,42,0.08);
+            transition: all 0.3s ease;
+        }
+
+        .video-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 48px var(--shadow-medium);
+        }
+
+        .video-placeholder {
+            width: 100%; height: 200px;
+            background: linear-gradient(135deg, var(--primary-dark-green), var(--secondary-green));
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 1.4rem;
+            position: relative;
+        }
+
+        .video-placeholder img { width: 100%; height: 100%; object-fit: cover; }
+
+        .video-card h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.6rem;
+            color: var(--primary-dark-green);
+        }
+
+        .video-card p { color: var(--light-text); font-size: 0.9rem; }
+
+        /* ─── BUTTONS ──────────────────────────────────────────── */
+        .btn {
+            display: inline-block;
+            padding: 12px 26px;
+            background: linear-gradient(135deg, var(--primary-dark-green), var(--secondary-green));
+            color: var(--white);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 1.2rem;
+            font-weight: 600;
+            font-size: 0.92rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px var(--shadow-medium);
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 28px var(--shadow-dark);
+        }
+
+        /* ─── DOWNLOAD ─────────────────────────────────────────── */
+        .download-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.8rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .step-card {
+            background: linear-gradient(135deg, var(--cream), var(--white));
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 6px 20px var(--shadow-light);
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .step-card:hover {
+            border-color: var(--accent-green);
+            transform: translateY(-5px);
+        }
+
+        .step-number {
+            width: 54px; height: 54px;
+            margin: 0 auto 1.2rem;
+            background: linear-gradient(135deg, var(--primary-dark-green), var(--accent-green));
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--white);
+            font-size: 1.6rem;
+            font-weight: 700;
+            box-shadow: 0 6px 20px var(--shadow-medium);
+        }
+
+        .step-card h4 { font-weight: 600; margin-bottom: 0.5rem; color: var(--primary-dark-green); }
+        .step-card p { color: var(--light-text); font-size: 0.9rem; }
+
+        .download-btn {
+            display: block;
+            width: 320px;
+            margin: 2.5rem auto;
+            padding: 18px 36px;
+            background: linear-gradient(135deg, var(--primary-dark-green), var(--secondary-green));
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 12px 32px var(--shadow-medium);
+        }
+
+        .download-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 44px var(--shadow-dark);
+        }
+
+        /* ─── INFO BOXES ───────────────────────────────────────── */
+        .info-box {
+            margin-top: 2rem;
+            padding: 2rem;
+            border-radius: 18px;
+            border-left: 5px solid;
+        }
+
+        .info-box.warning {
+            background: linear-gradient(135deg, #FFF8E1, #FFFBF0);
+            border-color: #FF8F00;
+        }
+
+        .info-box.tip {
+            background: linear-gradient(135deg, #E8F5E8, #F1F8F1);
+            border-color: var(--accent-green);
+        }
+
+        .info-box h4 { margin-bottom: 0.8rem; font-weight: 600; }
+        .info-box.warning h4 { color: #E65100; }
+        .info-box.tip h4 { color: var(--primary-dark-green); }
+        .info-box ul { padding-left: 1.4rem; }
+        .info-box li { margin-bottom: 0.4rem; font-size: 0.93rem; line-height: 1.6; }
+
+        /* ─── FOOTER ───────────────────────────────────────────── */
+        footer {
+            background: linear-gradient(135deg, var(--primary-dark-green), var(--secondary-green));
+            color: var(--white);
+            text-align: center;
+            padding: 2.5rem 0;
+            margin-top: 4rem;
+        }
+
+        footer::before {
+            content: '';
+            display: block;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--light-green), transparent);
+            margin-bottom: 2.5rem;
+        }
+
+        footer p { opacity: 0.88; margin-bottom: 0.4rem; font-size: 0.92rem; }
+
+        /* ─── SCROLL ANIMATIONS ────────────────────────────────── */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        
+
+        /* ─── RESPONSIVE ───────────────────────────────────────── */
+        @media (max-width: 1024px) {
+            .team-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            :root { --nav-height: 68px; }
+
+            .nav-desktop { display: none; }
+            .nav-toggle { display: flex; }
+            .nav-mobile { display: flex; }
+
+            .hero { padding: 7rem 0 5rem; }
+            .hero h2 { font-size: 2.4rem; }
+            .hero p { font-size: 1rem; }
+
+            .section { padding: 2.5rem 1.8rem; margin: 2rem 0; }
+            .section h3 { font-size: 2.2rem; }
+
+            .team-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+            .author-grid { grid-template-columns: 1fr; }
+
+            .features { padding: 3rem 0; gap: 1.5rem; }
+            .feature-card { padding: 2rem 1.5rem; }
+
+            .download-btn { width: 85%; max-width: 280px; }
+        }
+
+        @media (max-width: 480px) {
+            :root { --nav-height: 62px; }
+
+            .logo-text img { height: 26px; }
+            .logo-icon { width: 40px; height: 40px; }
+
+            .hero { padding: 5.5rem 0 4rem; }
+            .hero h2 { font-size: 2rem; line-height: 1.25; }
+            .hero p { font-size: 0.95rem; }
+
+            .section { padding: 2rem 1.2rem; border-radius: 20px; }
+            .section h3 { font-size: 1.8rem; }
+
+            .author-card { padding: 1.8rem 1.2rem; }
+            .author-avatar { width: 110px; height: 110px; }
+
+            .video-card { padding: 1.5rem; }
+            .video-placeholder { height: 170px; }
+
+            .download-steps { grid-template-columns: 1fr; }
+            .download-btn { width: 92%; font-size: 1rem; padding: 15px 20px; }
+
+            .info-box { padding: 1.5rem; }
+        }
+
+        @media (max-width: 360px) {
+            .logo-text span { display: none; }
+            .hero h2 { font-size: 1.75rem; }
+            .section h3 { font-size: 1.6rem; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ─── HEADER ──────────────────────────────────────────────── -->
+    <header id="main-header">
+        <div class="container">
+            <div class="header-content">
+
+                <div class="logo">
+                    <div class="logo-icon">
+                        <img src="icon.png" alt="Taksu Usada Icon">
+                    </div>
+                    <div class="logo-text">
+                        <img src="12.png" alt="Taksu Usada">
+                        <span>Digitalisasi Kearifan Lokal Bali</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <nav class="nav-desktop">
+                    <a href="#beranda" class="active">Beranda</a>
+                    <a href="#fitur">Fitur</a>
+                    <a href="#penulis">Our Team</a>
+                    <a href="#video">Tentang</a>
+                    <a href="#download" class="nav-cta"> Download</a>
+                </nav>
+
+                <!-- Hamburger -->
+                <button class="nav-toggle" id="navToggle" aria-label="Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation Drawer -->
+    <nav class="nav-mobile" id="navMobile">
+        <a href="#beranda" data-icon="">Beranda</a>
+        <a href="#fitur" data-icon="">Fitur</a>
+        <a href="#penulis" data-icon="">Our Team</a>
+        <a href="#video" data-icon="">Tentang</a>
+        <a href="#download" class="nav-cta-mobile" data-icon="">Download Aplikasi</a>
+    </nav>
+
+    <!-- Overlay -->
+    <div class="nav-overlay" id="navOverlay"></div>
+
+    <main>
+        <!-- ─── HERO ──────────────────────────────────────────────── -->
+        <section id="beranda" class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h2>Transformasi Digital Usada Bali</h2>
+                    <p>Aplikasi mobile inovatif yang mendigitalisasi warisan pengobatan tradisional Bali (Usada Bali) menjadi platform edukatif dan interaktif berbasis teknologi modern. Dikembangkan menggunakan React Native dan Laravel untuk menjembatani pengetahuan herbal leluhur dengan kebutuhan masyarakat masa kini.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── FITUR ─────────────────────────────────────────────── -->
+        <section id="fitur" class="container">
+            <div class="features">
+                <div class="feature-card fade-in">
+                    <div class="feature-icon"><img src="15.png" alt="Scan Herbal"></div>
+                    <h3>Scan Herbal</h3>
+                    <p>Melalui fitur Scan Herbal, pengguna cukup mengarahkan kamera ke tanaman herbal untuk mengenali jenis dan manfaatnya secara instan.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon"><img src="17.png" alt="Konsultasi"></div>
+                    <h3>Konsultasi</h3>
+                    <p>Fitur Konsultasi menghubungkan pengguna dengan ahli herbal Usada Bali untuk layanan personal dan holistik, pengguna dapat memilih praktisi dan mengatur jadwal.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon"><img src="16.png" alt="Artikel Usada"></div>
+                    <h3>Artikel Usada</h3>
+                    <p>Fitur Artikel menjadi pusat pengetahuan Taksu Usada, menyediakan resep dan informasi pengobatan tradisional Bali yang diwariskan turun-temurun.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon"><img src="18.png" alt="E-Commerce"></div>
+                    <h3>E-Commerce</h3>
+                    <p>Fitur Marketplace memudahkan pembelian produk herbal Bali sekaligus memberdayakan petani dan produsen lokal dengan sistem pembayaran dan pelacakan yang aman.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── PENDIRI ───────────────────────────────────────────── -->
+        <section id="penulis" class="section">
+            <div class="container">
+                <h3>Pendiri Taksu Usada</h3>
+                <div class="author-grid">
+                    <div class="author-card fade-in">
+                        <div class="author-avatar">
+                            <img src="thio.jpg" alt="I Putu Thio Mahapradana">
+                        </div>
+                        <h4>I Putu Thio Mahapradana</h4>
+                        <span class="role-badge">Founder</span>
+                        <p>Saya adalah mahasiswa kedokteran yang memiliki semangat kuat dalam pengembangan kesehatan berbasis kearifan lokal. Ketertarikan saya terfokus pada penelitian medis dan pemanfaatan data sebagai landasan pengembangan solusi kesehatan berkelanjutan.</p>
+                    </div>
+                    <div class="author-card fade-in">
+                        <div class="author-avatar">
+                            <img src="dedik.jpg" alt="Kadek Adika Ananda Aryana">
+                        </div>
+                        <h4>Kadek Adika Ananda Aryana</h4>
+                        <span class="role-badge">Co-Founder</span>
+                        <p>Saya adalah mahasiswa Informatika yang berfokus pada penerapan teknologi untuk pelestarian budaya. Berawal dari ide Taksu Usada, saya bertanggung jawab dalam merancang dan mengembangkan platform digital yang menghubungkan pengetahuan tradisional dengan inovasi digital.</p>
+                    </div>
+                </div>
+
+                <div class="info-box tip">
+                    <h4>🌿 Inovasi Taksu Usada</h4>
+                    <p>Inovasi ini merupakan upaya pelestarian budaya guna mendukung inovasi layanan kesehatan berbasis etnomedicine. Dengan menggabungkan teknologi modern seperti AI dan Mobile Development, kami menciptakan jembatan antara wisdom tradisional dan kebutuhan digital masa kini.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── TIM PENGEMBANG ────────────────────────────────────── -->
+        <section id="tim-pengembang" class="section">
+            <div class="container">
+                <h3>Tim Pengembang</h3>
+                <div class="team-grid">
+
+                    <div class="author-card fade-in">
+                        <div class="author-avatar">
+                            <img src="candra.jpeg" alt="I Kadek Candra Gunawan">
+                        </div>
+                        <h4>I Kadek Candra Gunawan</h4>
+                        <span class="role-badge">CPO</span>
+                        <p>Membangun pengalaman pengguna yang intuitif dan responsif melalui pengembangan aplikasi mobile dengan menjembatani kearifan lokal ke dalam genggaman masyarakat modern.</p>
+                    </div>
+
+                    <div class="author-card fade-in">
+                        <div class="author-avatar">
+                            <img src="ivan.jpeg" alt="Kadek Pasek Divandra Kusuma">
+                        </div>
+                        <h4>Kadek Pasek Divandra Kusuma</h4>
+                        <span class="role-badge">CTO</span>
+                        <p>Merancang dan mengembangkan sistem kecerdasan buatan yang menjadi otak di balik Taksu Usada dan memastikan setiap rekomendasi berbasis data etnomedicine bekerja akurat dan adaptif.</p>
+                    </div>
+
+                    <div class="author-card fade-in">
+                        <div class="author-avatar">
+                            <img src="kakgung.jpeg" alt="Gusti Ayu Putu Dian Oktamaharani">
+                        </div>
+                        <h4>Gusti Ayu Putu Dian Oktamaharani</h4>
+                        <span class="role-badge">CFO</span>
+                        <p>Mengelola strategi keuangan dan keberlanjutan operasional Taksu Usada untuk memastikan setiap langkah inovasi berjalan dengan fondasi finansial yang kokoh dan terencana.</p>
+                    </div>
+
+                </div>
+
+                <div class="info-box tip" style="margin-top: 2rem;">
+                    <h4>Sinergi Tim Pengembang</h4>
+                    <p>Ketiga pilar pengembang ini bekerja secara kolaboratif untuk menghadirkan platform yang tidak hanya canggih secara teknologi, tetapi juga berkelanjutan secara bisnis dan memastikan Taksu Usada tumbuh menjadi solusi kesehatan tradisional yang relevan di era digital.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── VIDEO / TENTANG ───────────────────────────────────── -->
+        <section id="video" class="section">
+            <div class="container">
+                <h3>Mengenal Platform Taksu Usada</h3>
+                <div class="video-container">
+                    <div class="video-card fade-in">
+                        <div class="video-placeholder">
+                            <img src="VIDIO1.jpg" alt="Pengenalan Aplikasi">
+                        </div>
+                        <h4>Pengenalan Aplikasi</h4>
+                        <p>Gambaran umum tentang fitur-fitur utama Taksu Usada dan cara kerja aplikasinya.</p>
+                        <a href="https://drive.google.com/file/d/158tS9cm04-J25CDFyvRBtuGfIvhK31TX/view?usp=drive_link" class="btn" target="_blank">Tonton Video</a>
+                    </div>
+                    <div class="video-card fade-in">
+                        <div class="video-placeholder">
+                            <img src="VIDIO3.jpg" alt="Demonstrasi Fitur">
+                        </div>
+                        <h4>Demonstrasi Fitur</h4>
+                        <p>Penjelasan fitur Taksu Usada yang menggabungkan kearifan lokal & teknologi.</p>
+                        <a href="https://drive.google.com/drive/folders/1uXAlx-Z1DHkAtmiVQduvvMLG5cZLV2cc" class="btn" target="_blank">Tonton Video</a>
+                    </div>
+                    <div class="video-card fade-in">
+                        <div class="video-placeholder">
+                            <img src="VIDIO2.jpg" alt="Media Sosial">
+                        </div>
+                        <h4>Media Sosial</h4>
+                        <p>Mengenal tentang aplikasi Taksu Usada sebagai platform e-commerce Usada Bali.</p>
+                        <a href="https://www.instagram.com/taksu.usada?igsh=MWNrZnY3dDBrbzNnNg==" class="btn" target="_blank">Kunjungi</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── DOWNLOAD ──────────────────────────────────────────── -->
+        <section id="download" class="section">
+            <div class="container">
+                <h3>Download Aplikasi</h3>
+                <p style="text-align:center; margin-bottom:2.5rem; color:var(--light-text); font-size:1.1rem;">
+                    Ikuti langkah-langkah berikut untuk mengunduh dan menginstal aplikasi Taksu Usada dari Google Drive:
+                </p>
+
+                <div class="download-steps">
+                    <div class="step-card fade-in">
+                        <div class="step-number">1</div>
+                        <h4>Klik Link Download</h4>
+                        <p>Klik tombol download di bawah untuk mengakses file aplikasi di Google Drive.</p>
+                    </div>
+                    <div class="step-card fade-in">
+                        <div class="step-number">2</div>
+                        <h4>Buka Google Drive</h4>
+                        <p>Link akan membawa Anda ke halaman Google Drive tempat file aplikasi tersimpan.</p>
+                    </div>
+                    <div class="step-card fade-in">
+                        <div class="step-number">3</div>
+                        <h4>Pilih File APK</h4>
+                        <p>Temukan file APK Taksu Usada di dalam folder Google Drive dan klik untuk membuka opsi download.</p>
+                    </div>
+                    <div class="step-card fade-in">
+                        <div class="step-number">4</div>
+                        <h4>Download File APK</h4>
+                        <p>Klik ikon download di Google Drive untuk mengunduh file APK ke perangkat Anda.</p>
+                    </div>
+                    <div class="step-card fade-in">
+                        <div class="step-number">5</div>
+                        <h4>Izinkan Instalasi</h4>
+                        <p>Pastikan perangkat Anda mengizinkan instalasi dari sumber tidak dikenal di pengaturan keamanan.</p>
+                    </div>
+                    <div class="step-card fade-in">
+                        <div class="step-number">6</div>
+                        <h4>Install Aplikasi</h4>
+                        <p>Buka file APK yang telah diunduh dan ikuti petunjuk instalasi hingga aplikasi terpasang sempurna.</p>
+                    </div>
+                </div>
+
+                <a href="https://drive.google.com/drive/folders/1GklvChsfrGjilKpITUHBVx8e6J6lG96C" class="download-btn" target="_blank">
+                     Download Aplikasi Taksu Usada
+                </a>
+
+                <div class="info-box warning">
+                    <h4>⚠️ Penting untuk Diperhatikan</h4>
+                    <ul>
+                        <li>Pastikan perangkat Android Anda mengizinkan instalasi dari sumber tidak dikenal</li>
+                        <li>Aplikasi memerlukan koneksi internet untuk fitur scan herbal dan konsultasi</li>
+                        <li>Pastikan memiliki ruang penyimpanan yang cukup</li>
+                        <li>Pastikan HP Android anda memiliki versi yang kompatibel</li>
+                    </ul>
+                </div>
+
+                <div class="info-box tip">
+                    <h4>💡 Tips Penggunaan</h4>
+                    <ul>
+                        <li>Gunakan pencahayaan yang baik saat melakukan scan herbal untuk hasil terbaik</li>
+                        <li>Baca artikel edukatif secara berkala untuk memperkaya pengetahuan</li>
+                        <li>Bergabunglah dengan komunitas untuk berbagi pengalaman</li>
+                        <li>Manfaatkan fitur scan Herbal untuk mengetahui tumbuhan sekitar anda</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Taksu Usada. Dikembangkan dengan ❤️ untuk pelestarian budaya Bali.</p>
+            <p>Menghubungkan kearifan tradisional dengan teknologi modern.</p>
+        </div>
+    </footer>
+
+    <script>
+    // ─── MOBILE NAV ─────────────────────────────────────────────
+    const navToggle   = document.getElementById('navToggle');
+    const navMobile   = document.getElementById('navMobile');
+    const navOverlay  = document.getElementById('navOverlay');
+
+    function openNav() {
+        navToggle.classList.add('open');
+        navMobile.classList.add('open');
+        navOverlay.style.display = 'block';
+        requestAnimationFrame(() => navOverlay.classList.add('open'));
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeNav() {
+        navToggle.classList.remove('open');
+        navMobile.classList.remove('open');
+        navOverlay.classList.remove('open');
+        document.body.style.overflow = '';
+        setTimeout(() => { navOverlay.style.display = 'none'; }, 300);
+    }
+
+    navToggle.addEventListener('click', () => {
+        navMobile.classList.contains('open') ? closeNav() : openNav();
+    });
+
+    navOverlay.addEventListener('click', closeNav);
+
+    // Close mobile nav on link click
+    navMobile.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', closeNav);
+    });
+
+    // ─── SMOOTH SCROLL ──────────────────────────────────────────
+    function smoothScrollTo(targetId) {
+        if (targetId === 'beranda') {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            return;
+        }
+        const target = document.getElementById(targetId);
+        if (!target) return;
+        const headerH = document.getElementById('main-header').offsetHeight;
+        window.scrollTo({ top: target.offsetTop - headerH - 16, behavior: 'smooth' });
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', e => {
+            e.preventDefault();
+            smoothScrollTo(a.getAttribute('href').substring(1));
+        });
+    });
+
+    // ─── ACTIVE NAV ON SCROLL ───────────────────────────────────
+    const sections = ['beranda','fitur','penulis','video','download'];
+
+    function updateActiveNav() {
+        const scrollY = window.scrollY;
+        const headerH = document.getElementById('main-header').offsetHeight;
+        let current = 'beranda';
+
+        sections.forEach(id => {
+            const el = id === 'beranda'
+                ? document.querySelector('.hero')
+                : document.getElementById(id);
+            if (el && scrollY >= el.offsetTop - headerH - 80) current = id;
+        });
+
+        document.querySelectorAll('.nav-desktop a, .nav-mobile a').forEach(a => {
+            a.classList.toggle('active', a.getAttribute('href') === `#${current}`);
+        });
+    }
+
+    window.addEventListener('scroll', updateActiveNav, { passive: true });
+
+    // ─── SCROLL ANIMATIONS ──────────────────────────────────────
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // ─── HEADER SCROLL EFFECT ───────────────────────────────────
+    window.addEventListener('scroll', () => {
+        const header = document.getElementById('main-header');
+        header.style.boxShadow = window.scrollY > 60
+            ? '0 8px 32px rgba(24,67,42,0.35)'
+            : '0 4px 24px rgba(24,67,42,0.2)';
+    }, { passive: true });
+
+    // ─── PAGE LOAD FADE ─────────────────────────────────────────
+    document.body.style.opacity = '0';
+    window.addEventListener('load', () => {
+        document.body.style.transition = 'opacity 0.5s ease';
+        document.body.style.opacity = '1';
+    });
+    </script>
+</body>
+</html>
